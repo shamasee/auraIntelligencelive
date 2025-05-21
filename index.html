@@ -16,6 +16,7 @@
             --aura-text-main: var(--aura-light-blue);
             --aura-energy-color: var(--aura-bright-cyan);
             --aura-error-color: #ff6b6b; /* For error messages */
+            --aura-warning-color: #ffcc00; /* For user listening indication */
             --default-perspective: 1800px;
 
             /* Stealth Theme (example) */
@@ -97,17 +98,38 @@
         @keyframes subtle-flicker { 0%, 100% { opacity: 0.9; filter: brightness(1); } 25% { opacity: 0.7; filter: brightness(0.8); } 50% { opacity: 1; filter: brightness(1.2); } 75% { opacity: 0.8; filter: brightness(0.9); } }
         @keyframes data-stream { 0% { transform: translateY(-100%) translateX(var(--x-pos)); opacity: 0; } 10% { opacity: var(--opacity); } 90% { opacity: var(--opacity); } 100% { transform: translateY(100vh) translateX(var(--x-pos)); opacity: 0; } }
 
-        @keyframes pulse-core-enhanced { 0%, 100% { opacity: 0.8; transform: translate3d(-50%, -50%, 0px) scale(0.95); box-shadow: var(--aura-glow-bright-cyan); filter: brightness(100%) saturate(100%); } 25% { filter: brightness(120%) saturate(110%); } 50% { opacity: 1; transform: translate3d(-50%, -50%, 0px) scale(1.05); box-shadow: 0 0 10px var(--aura-bright-cyan), 0 0 20px var(--aura-bright-cyan), 0 0 30px var(--aura-cyan); filter: brightness(150%) saturate(130%); } 75% { filter: brightness(110%) saturate(105%); } }
-        @keyframes pulse-listening { 0%, 100% { opacity: 0.7; transform: translate3d(-50%, -50%, 0px) scale(0.9); box-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00; filter: brightness(100%); } 50% { opacity: 1; transform: translate3d(-50%, -50%, 0px) scale(1.1); box-shadow: 0 0 15px #ffcc00, 0 0 30px #ffaa00, 0 0 45px #ffaa00; filter: brightness(130%); } }
+        @keyframes pulse-core-enhanced { 0%, 100% { opacity: 0.8; transform: translate3d(-50%, -50%, var(--z, 0px)) scale(0.95); box-shadow: var(--aura-glow-bright-cyan); filter: brightness(100%) saturate(100%); } 25% { filter: brightness(120%) saturate(110%); } 50% { opacity: 1; transform: translate3d(-50%, -50%, var(--z, 0px)) scale(1.05); box-shadow: 0 0 10px var(--aura-bright-cyan), 0 0 20px var(--aura-bright-cyan), 0 0 30px var(--aura-cyan); filter: brightness(150%) saturate(130%); } 75% { filter: brightness(110%) saturate(105%); } }
+        @keyframes pulse-listening { 0%, 100% { opacity: 0.7; transform: translate3d(-50%, -50%, var(--z, 0px)) scale(0.9); box-shadow: 0 0 10px var(--aura-warning-color), 0 0 20px var(--aura-warning-color); filter: brightness(100%); } 50% { opacity: 1; transform: translate3d(-50%, -50%, var(--z, 0px)) scale(1.1); box-shadow: 0 0 15px var(--aura-warning-color), 0 0 30px color-mix(in srgb, var(--aura-warning-color) 70%, black), 0 0 45px color-mix(in srgb, var(--aura-warning-color) 50%, black); filter: brightness(130%); } }
         @keyframes thinking-pulse { 0%, 100% { transform: translate3d(-50%, -50%, 15px) scale(1); opacity: 0.9; } 50% { transform: translate3d(-50%, -50%, 15px) scale(1.25); opacity: 1; } }
         @keyframes thinking-pulse-small { 0%, 100% { transform: translate3d(-50%, -50%, 20px) scale(0.9); } 50% { transform: translate3d(-50%, -50%, 20px) scale(1.15); } }
         @keyframes core-thinking-glow { 0% { box-shadow: 0 0 8px var(--aura-light-blue), 0 0 15px var(--aura-light-blue), 0 0 25px var(--aura-mid-blue); } 100% { box-shadow: 0 0 12px var(--aura-cyan), 0 0 22px var(--aura-cyan), 0 0 35px var(--aura-bright-cyan); } }
         @keyframes ring-thinking-pulse { 0% { border-width: 2px; opacity: 0.9; box-shadow: var(--aura-glow-blue); transform: scale(1) translate3d(-50%, -50%, var(--z-depth, 5px)); } 100% { border-width: 3px; opacity: 1; box-shadow: var(--aura-glow-cyan); transform: scale(1.03) translate3d(-50%, -50%, var(--z-depth, 5px)); } }
         @keyframes core-aura-speaking-pulse { 0%, 100% { box-shadow: var(--aura-glow-bright-cyan); filter: brightness(1.1); } 50% { box-shadow: 0 0 10px var(--aura-bright-cyan), 0 0 25px var(--aura-cyan), 0 0 40px var(--aura-light-blue); filter: brightness(1.4); } }
+        
+        /* Add --z var to pulse-core-enhanced keyframes for core elements */
+        .core-0 { --z: 20px; width: 2%; height: 2%; background-color: #fff; border-radius: 50%; box-shadow: 0 0 5px #fff, 0 0 10px var(--aura-bright-cyan), 0 0 15px var(--aura-cyan); animation: pulse-core-enhanced 1.5s var(--spring-ease-elastic) infinite; z-index: 101; transform: translate3d(-50%, -50%, 20px); cursor: pointer;}
+        .core-1 { --z: 15px; width: 8%; height: 8%; background-color: var(--aura-bright-cyan); border-radius: 50%; box-shadow: var(--aura-glow-bright-cyan); animation: pulse-core-enhanced 2s var(--spring-ease-elastic) infinite 0.2s; z-index: 100; transform: translate3d(-50%, -50%, 15px); cursor: pointer;}
+        .core-2 { --z: 5px; width: 13%; height: 13%; border: 2px solid var(--aura-light-blue); border-radius: 50%; opacity: 0.8; box-shadow: var(--aura-glow-blue); animation: pulse-core-enhanced 2.5s var(--spring-ease-gentle) infinite alternate 0.4s; z-index: 99; transform: translate3d(-50%, -50%, 5px); cursor: pointer;}
+        
+        /* Error state pulse for core elements */
+        .aura-hud.error-state .core-0,
+        .aura-hud.error-state .core-1,
+        .aura-hud.error-state .core-2 {
+            animation: error-pulse 0.5s ease-in-out 3, pulse-core-enhanced 1.5s var(--spring-ease-elastic) infinite; /* Keep base animation */
+        }
+        .aura-hud.error-state .core-1 { animation: error-pulse 0.5s ease-in-out 3, pulse-core-enhanced 2s var(--spring-ease-elastic) infinite 0.2s;  }
+        .aura-hud.error-state .core-2 { animation: error-pulse 0.5s ease-in-out 3, pulse-core-enhanced 2.5s var(--spring-ease-gentle) infinite alternate 0.4s; }
 
-        .core-0 { width: 2%; height: 2%; background-color: #fff; border-radius: 50%; box-shadow: 0 0 5px #fff, 0 0 10px var(--aura-bright-cyan), 0 0 15px var(--aura-cyan); animation: pulse-core-enhanced 1.5s var(--spring-ease-elastic) infinite; z-index: 101; transform: translate3d(-50%, -50%, 20px); cursor: pointer;}
-        .core-1 { width: 8%; height: 8%; background-color: var(--aura-bright-cyan); border-radius: 50%; box-shadow: var(--aura-glow-bright-cyan); animation: pulse-core-enhanced 2s var(--spring-ease-elastic) infinite 0.2s; z-index: 100; transform: translate3d(-50%, -50%, 15px); cursor: pointer;}
-        .core-2 { width: 13%; height: 13%; border: 2px solid var(--aura-light-blue); border-radius: 50%; opacity: 0.8; box-shadow: var(--aura-glow-blue); animation: pulse-core-enhanced 2.5s var(--spring-ease-gentle) infinite alternate 0.4s; z-index: 99; transform: translate3d(-50%, -50%, 5px); cursor: pointer;}
+        @keyframes error-pulse {
+            0%, 100% { box-shadow: inherit; background-color: inherit; border-color: inherit; } /* Use current shadow/color */
+            50% { 
+                box-shadow: 0 0 10px var(--aura-error-color), 0 0 20px var(--aura-error-color) !important;
+                background-color: var(--aura-error-color) !important; /* If element uses background */
+                border-color: var(--aura-error-color) !important; /* If element uses border */
+            }
+        }
+
+
         .core-3-segments { --z-depth: 0px; width: 18%; height: 18%; border-radius: 50%; z-index: 98; animation: rotate-clockwise var(--animation-speed-very-fast) linear infinite; transform: translate3d(-50%, -50%, 0px); }
         .core-3-segments .segment { position: absolute; width: 20%; height: 45%; background-color: var(--aura-cyan); top: 5%; left: 40%; transform-origin: 50% 100%; box-shadow: 0 0 3px var(--aura-cyan); animation: subtle-flicker 2.5s ease-in-out infinite alternate; }
         .core-3-segments .segment:nth-child(1) { transform: rotate(0deg) skewX(-10deg); animation-delay: 0s; } .core-3-segments .segment:nth-child(2) { transform: rotate(90deg) skewX(-10deg); animation-delay: 0.2s; } .core-3-segments .segment:nth-child(3) { transform: rotate(180deg) skewX(-10deg); animation-delay: 0.4s; } .core-3-segments .segment:nth-child(4) { transform: rotate(270deg) skewX(-10deg); animation-delay: 0.6s; }
@@ -161,14 +183,14 @@
         .hud-node:hover::after { background-color: var(--aura-bright-cyan); box-shadow: var(--aura-glow-bright-cyan); transform: translate(-50%, -50%) scale(1.3); }
         .node-ripple { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--aura-bright-cyan); transform: translate(-50%, -50%) scale(0); opacity: 0.7; animation: ripple-effect 0.6s var(--spring-ease-out-back); pointer-events: none; }
         @keyframes ripple-effect { 0% { transform: translate(-50%, -50%) scale(0); opacity: 0.7; } 80% { opacity: 0.3; } 100% { transform: translate(-50%, -50%) scale(2.8); opacity: 0; } }
-        .hud-node.node-activated { background-color: var(--aura-cyan); transform-origin: center; animation: node-activate-pulse 0.4s var(--spring-ease-elastic); }
-        /* Original transform with scale(1.45) at the end */
-        .hud-node.node-1.node-activated { animation: node-activate-pulse-n1 0.4s var(--spring-ease-elastic); transform: translate3d(-50%, -50%, 25px) translate(20vmin, 15vmin) scale(1.45) !important; }
-        @keyframes node-activate-pulse-n1 { 0% { transform: translate3d(-50%, -50%, 25px) translate(20vmin, 15vmin) scale(1); } 50% { transform: translate3d(-50%, -50%, 25px) translate(20vmin, 15vmin) scale(1.6); } 100% { transform: translate3d(-50%, -50%, 25px) translate(20vmin, 15vmin) scale(1.45); } }
-        .hud-node.node-2.node-activated { animation: node-activate-pulse-n2 0.4s var(--spring-ease-elastic); transform: translate3d(-50%, -50%, -10px) translate(-18vmin, -22vmin) scale(1.45) !important;}
-        @keyframes node-activate-pulse-n2 { 0% { transform: translate3d(-50%, -50%, -10px) translate(-18vmin, -22vmin) scale(1); } 50% { transform: translate3d(-50%, -50%, -10px) translate(-18vmin, -22vmin) scale(1.6); } 100% { transform: translate3d(-50%, -50%, -10px) translate(-18vmin, -22vmin) scale(1.45); } }
-        .hud-node.node-3.node-activated { animation: node-activate-pulse-n3 0.4s var(--spring-ease-elastic); transform: translate3d(-50%, -50%, 5px) translate(10vmin, -28vmin) scale(1.45) !important;}
-        @keyframes node-activate-pulse-n3 { 0% { transform: translate3d(-50%, -50%, 5px) translate(10vmin, -28vmin) scale(1); } 50% { transform: translate3d(-50%, -50%, 5px) translate(10vmin, -28vmin) scale(1.6); } 100% { transform: translate3d(-50%, -50%, 5px) translate(10vmin, -28vmin) scale(1.45); } }
+        
+        /* .hud-node.node-activated { background-color: var(--aura-cyan); transform-origin: center; } */ /* Base .node-activated can be minimal if specific animations handle all visuals */
+        .hud-node.node-1.node-activated { animation: node-activate-pulse-n1 0.4s var(--spring-ease-elastic) forwards; }
+        @keyframes node-activate-pulse-n1 { 0% { transform: translate3d(-50%, -50%, 25px) translate(20vmin, 15vmin) scale(1); background-color: var(--aura-mid-blue);} 50% { transform: translate3d(-50%, -50%, 25px) translate(20vmin, 15vmin) scale(1.6); background-color: var(--aura-cyan); } 100% { transform: translate3d(-50%, -50%, 25px) translate(20vmin, 15vmin) scale(1.45); background-color: var(--aura-cyan); } }
+        .hud-node.node-2.node-activated { animation: node-activate-pulse-n2 0.4s var(--spring-ease-elastic) forwards; }
+        @keyframes node-activate-pulse-n2 { 0% { transform: translate3d(-50%, -50%, -10px) translate(-18vmin, -22vmin) scale(1); background-color: var(--aura-mid-blue); } 50% { transform: translate3d(-50%, -50%, -10px) translate(-18vmin, -22vmin) scale(1.6); background-color: var(--aura-cyan); } 100% { transform: translate3d(-50%, -50%, -10px) translate(-18vmin, -22vmin) scale(1.45); background-color: var(--aura-cyan); } }
+        .hud-node.node-3.node-activated { animation: node-activate-pulse-n3 0.4s var(--spring-ease-elastic) forwards; }
+        @keyframes node-activate-pulse-n3 { 0% { transform: translate3d(-50%, -50%, 5px) translate(10vmin, -28vmin) scale(1); background-color: var(--aura-mid-blue); } 50% { transform: translate3d(-50%, -50%, 5px) translate(10vmin, -28vmin) scale(1.6); background-color: var(--aura-cyan); } 100% { transform: translate3d(-50%, -50%, 5px) translate(10vmin, -28vmin) scale(1.45); background-color: var(--aura-cyan); } }
 
 
         .aura-title-container { position: absolute; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 30px); display: flex; z-index: 200; pointer-events: none; }
@@ -178,8 +200,8 @@
         
         .status-text { margin-top: 10px; font-size: clamp(1.5vmin, 2vw, 2.5vmin); color: var(--aura-text-main); text-align: center; height: 3em; width: 80%; opacity: 0.8; transition: opacity 0.4s ease, color 0.4s ease, transform 0.4s var(--spring-ease-gentle); transform: translateY(0px); }
         .status-text.status-changing { opacity: 0; transform: translateY(15px); }
-        .status-text.listening { color: #ffcc00; }
-        .status-text.error { color: var(--aura-error-color) !important; }
+        .status-text.listening { color: var(--aura-warning-color); }
+        .status-text.error { color: var(--aura-error-color) !important; font-weight: bold; }
 
         .particle-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; transition: opacity 0.5s ease; }
         .particle-background.hidden { opacity: 0; }
@@ -198,7 +220,7 @@
     <div class="scanline-overlay"></div>
     <div class="particle-background" id="particle-bg"></div>
 
-    <div class="aura-container" id="auraContainerElement"> <!-- Added ID for perspective control -->
+    <div class="aura-container" id="auraContainerElement">
         <div class="speech-feedback-ring" id="speechRingIndicator"></div>
         <div class="aura-hud" id="auraHudMain">
             <div class="ring core-0" data-core-id="0"></div> <div class="ring core-1" data-core-id="1"></div> <div class="ring core-2" data-core-id="2"></div>
@@ -227,13 +249,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const auraContainerElement = document.getElementById('auraContainerElement');
-            const auraHud = document.getElementById('auraHudMain');
+            const auraHudMain = document.getElementById('auraHudMain'); // Changed ID to match usage
             const coreElements = [
                 document.querySelector('.core-0'),
                 document.querySelector('.core-1'),
                 document.querySelector('.core-2')
             ];
-            const mainCoreElement = document.querySelector('.core-1'); // For specific animations
+            const mainCoreElement = document.querySelector('.core-1');
             const statusText = document.getElementById('statusText');
             const auraTitleContainer = document.getElementById('auraTitle');
             const particleBg = document.getElementById('particle-bg');
@@ -241,22 +263,35 @@
             const root = document.documentElement;
             const defaultPerspectiveValue = getComputedStyle(root).getPropertyValue('--default-perspective').trim() || '1800px';
 
-            let userName = "";
-            let userMemory = ""; 
-            let currentAnimationSpeedFactor = 1;
-            let particlesEnabled = true;
-            let dataReadoutsVisible = true;
-            let isFirstActivation = true; // Flag for initial greeting and briefing
+            // --- Persisted Settings ---
+            let userName = localStorage.getItem('auraUserName') || "";
+            let userMemory = localStorage.getItem('auraUserMemory') || "";
+            let currentAnimationSpeedFactor = parseFloat(localStorage.getItem('auraAnimSpeed')) || 1;
+            root.style.setProperty('--animation-speed-factor', currentAnimationSpeedFactor.toFixed(2));
+            
+            let particlesEnabled = localStorage.getItem('auraParticlesEnabled') === null ? true : localStorage.getItem('auraParticlesEnabled') === 'true';
+            let currentTheme = localStorage.getItem('auraTheme') || 'standard'; // Will be applied by setTheme
+            let isFirstActivation = localStorage.getItem('auraFirstActivationDone') === null;
+            let dataReadoutsVisible = localStorage.getItem('auraDataReadoutsVisible') === null ? true : localStorage.getItem('auraDataReadoutsVisible') === 'true';
+
 
             // --- Web Audio API for Haptic-like Sounds ---
-            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            let audioCtx;
+            try {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            } catch (e) {
+                console.warn("AudioContext not supported:", e);
+                audioCtx = null;
+            }
             
             function playHapticSound(type = 'click', volume = 0.3) {
-                if (!audioCtx) return;
+                if (!audioCtx || audioCtx.state === 'closed') return;
                 try {
-                    if (audioCtx.state === 'suspended') {
-                        audioCtx.resume();
+                    if (audioCtx.state === 'suspended') { // Attempt to resume if suspended, common in browsers
+                        audioCtx.resume().catch(e => console.warn("Could not resume audio context for haptic sound:", e));
+                        // If resume fails, sound might not play, but don't crash
                     }
+                    // Proceed even if resume is pending, it might succeed by the time of scheduling
                     const oscillator = audioCtx.createOscillator();
                     const gainNode = audioCtx.createGain();
                     gainNode.connect(audioCtx.destination);
@@ -293,41 +328,49 @@
                 }
             }
 
-
             // --- Helper to set status text with animation ---
             let statusTimeout;
-            function setStatusDisplay(newText, isListening = false, isError = false) {
+            function setStatusDisplay(newText, isListening = false, isError = false, duration = null) {
                 clearTimeout(statusTimeout);
                 statusText.classList.add('status-changing');
-                statusText.classList.remove('error'); 
+                statusText.classList.remove('error', 'listening');
+                if (isError) auraHudMain.classList.add('error-state'); else auraHudMain.classList.remove('error-state');
+
 
                 statusTimeout = setTimeout(() => {
                     statusText.textContent = newText;
                     statusText.classList.remove('status-changing');
                     if (isListening) statusText.classList.add('listening');
-                    else statusText.classList.remove('listening');
-                    if (isError) statusText.classList.add('error');
+                    if (isError) {
+                        statusText.classList.add('error');
+                        setTimeout(() => auraHudMain.classList.remove('error-state'), 1500); // Duration of error pulse
+                    }
+
+                    if (duration && !isListening && !isError) {
+                        clearTimeout(statusTimeout); 
+                        statusTimeout = setTimeout(() => {
+                            if (isListeningForWakeWord) {
+                                setStatusDisplay(isFirstActivation ? "Aura ready. Say 'Aura activate' or click core for your initial briefing." : "Aura ready. Say 'Aura activate' or click core.");
+                            } else if (!isMainRecognitionActive && !isProcessingCommand && !SpeechSynthesis.speaking) {
+                                setStatusDisplay("Aura idle. Click core to activate.");
+                            }
+                        }, duration);
+                    }
                 }, 200);
             }
 
-            // --- Mock Data Readouts Update ---
             const readoutElements = [ document.getElementById('readout1'), document.getElementById('readout2'), document.getElementById('readout3') ];
+            readoutElements.forEach(el => { if (el) el.classList.toggle('hidden', !dataReadoutsVisible); });
             const readoutPrefixes = ["SIG_STR:", "FLUX:", "CORE_T:", "NAV_COORD:", "ID_SCAN:", "QUANT_FLD:", "ENGY_SRC:", "SYS_LOAD:", "PING:"];
             function updateReadouts() {
+                if (!dataReadoutsVisible) return;
                 readoutElements.forEach(el => {
                     if (el) {
                         const prefix = readoutPrefixes[Math.floor(Math.random() * readoutPrefixes.length)];
                         let value, unit = "";
-                        if (prefix === "SYS_LOAD:") {
-                            value = (Math.random() * 70 + 20).toFixed(1); unit = "%";
-                        } else if (prefix === "PING:") {
-                            value = Math.floor(Math.random() * 50 + 10); unit = "ms";
-                        } else {
-                            value = Math.random() > 0.3 ? 
-                                    (Math.random() * 1000).toFixed(Math.random() > 0.5 ? 2 : 0) : 
-                                    Math.floor(Math.random() * 0xFFFFFF).toString(16).toUpperCase().padStart(6, '0');
-                            unit = Math.random() > 0.6 ? (Math.random() > 0.5 ? "μs" : "dB") : (Math.random() > 0.5 ? "%" : " C");
-                        }
+                        if (prefix === "SYS_LOAD:") { value = (Math.random() * 70 + 20).toFixed(1); unit = "%"; } 
+                        else if (prefix === "PING:") { value = Math.floor(Math.random() * 50 + 10); unit = "ms"; } 
+                        else { value = Math.random() > 0.3 ? (Math.random() * 1000).toFixed(Math.random() > 0.5 ? 2 : 0) : Math.floor(Math.random() * 0xFFFFFF).toString(16).toUpperCase().padStart(6, '0'); unit = Math.random() > 0.6 ? (Math.random() > 0.5 ? "μs" : "dB") : (Math.random() > 0.5 ? "%" : " C"); }
                         el.textContent = `${prefix} ${value}${unit}`;
                     }
                 });
@@ -339,10 +382,13 @@
                 const span = document.createElement('span'); span.textContent = char === ' ' ? '\u00A0' : char;
                 span.style.animationDelay = `${index * 0.08}s, ${index * 0.12 + 0.5}s`; auraTitleContainer.appendChild(span);
             });
+
             function createParticles() { 
                 const numParticles = 60; 
                 if (!particleBg) return;
                 particleBg.innerHTML = ''; 
+                if (!particlesEnabled) { particleBg.classList.add('hidden'); return; }
+                particleBg.classList.remove('hidden');
                 for (let i = 0; i < numParticles; i++) {
                     const p = document.createElement('div'); p.classList.add('particle');
                     const size = Math.random() * 2.5 + 0.5; p.style.width = `${size}px`; p.style.height = `${size}px`;
@@ -351,30 +397,20 @@
                     particleBg.appendChild(p);
                 }
             }
-            if (particlesEnabled) createParticles();
-            particleBg.classList.toggle('hidden', !particlesEnabled);
-
+            createParticles(); // Call after particlesEnabled is loaded
 
             const tickContainer = document.getElementById('tickRing');
             if (tickContainer) { 
-                const numTicks = 36;
-                const auraContainerSize = parseFloat(getComputedStyle(auraContainerElement).width);
+                const numTicks = 36; const auraContainerSize = parseFloat(getComputedStyle(auraContainerElement).width);
                 root.style.setProperty('--aura-container-size', `${auraContainerSize}px`); 
-
                 for (let i = 0; i < numTicks; i++) {
-                    const tick = document.createElement('div'); tick.classList.add('tick');
-                    const angle = i * (360 / numTicks);
+                    const tick = document.createElement('div'); tick.classList.add('tick'); const angle = i * (360 / numTicks);
                     tick.style.transform = `translateX(-50%) rotate(${angle}deg)`;
-                    if (i % 3 !== 0) tick.style.height = '1.5%'; 
-                    if (i % 6 === 0) { tick.style.backgroundColor = 'var(--aura-bright-cyan)'; tick.style.height = '2.5%'; }
+                    if (i % 3 !== 0) tick.style.height = '1.5%'; if (i % 6 === 0) { tick.style.backgroundColor = 'var(--aura-bright-cyan)'; tick.style.height = '2.5%'; }
                     tickContainer.appendChild(tick);
                 }
             }
-             window.addEventListener('resize', () => { 
-                const auraContainerSize = parseFloat(getComputedStyle(auraContainerElement).width);
-                root.style.setProperty('--aura-container-size', `${auraContainerSize}px`);
-            });
-
+            window.addEventListener('resize', () => { const newSize = parseFloat(getComputedStyle(auraContainerElement).width); root.style.setProperty('--aura-container-size', `${newSize}px`); });
 
             let mouseX = 0, mouseY = 0; let targetX = 0, targetY = 0; let rotationX = 0, rotationY = 0; let velocityX = 0, velocityY = 0;
             const stiffness = 0.04; const damping = 0.75; const easeFactor = 0.08;
@@ -384,28 +420,27 @@
                 const targetRotationX = (mouseY * 0.025); const targetRotationY = (-mouseX * 0.025); 
                 const forceX = (targetRotationX - rotationX) * stiffness; velocityX = (velocityX + forceX) * damping; rotationX += velocityX;
                 const forceY = (targetRotationY - rotationY) * stiffness; velocityY = (velocityY + forceY) * damping; rotationY += velocityY;
-                if (auraHud) { auraHud.style.transform = `rotateX(${rotationX.toFixed(3)}deg) rotateY(${rotationY.toFixed(3)}deg)`; }
+                if (auraHudMain) { auraHudMain.style.transform = `rotateX(${rotationX.toFixed(3)}deg) rotateY(${rotationY.toFixed(3)}deg)`; }
                 requestAnimationFrame(animateHud);
             }
             animateHud();
 
             document.querySelectorAll('.hud-node').forEach((node, index) => {
                 node.addEventListener('click', () => {
-                    if (node.classList.contains('node-activated-permanent')) return;
+                    if (node.classList.contains('node-activated')) return; // Prevent re-click while animating
+                    ensureAudioContextAndTryWakeWord(false); // Ensure context for sound, don't necessarily start wake word
                     playHapticSound('click', 0.2);
                     
-                    node.classList.add(`node-activated`, `node-activated-permanent`);
-                    if (node.classList.contains('node-1')) node.classList.add('node-1-activated');
-                    else if (node.classList.contains('node-2')) node.classList.add('node-2-activated');
-                    else if (node.classList.contains('node-3')) node.classList.add('node-3-activated');
+                    const nodeClass = `node-${index + 1}`;
+                    node.classList.add('node-activated', nodeClass + '-activated'); // -activated suffix for animation
 
                     const ripple = document.createElement('div'); ripple.classList.add('node-ripple'); node.appendChild(ripple);
                     setTimeout(() => ripple.remove(), 600);
-                    setStatusDisplay(`Node ${index + 1} query: PROCESSING...`);
+                    setStatusDisplay(`Node ${index + 1} query: PROCESSING...`, false, false, 1500 + Math.random() * 1000);
                     setTimeout(() => {
-                        node.classList.remove('node-activated', 'node-activated-permanent', 'node-1-activated', 'node-2-activated', 'node-3-activated'); 
-                        setStatusDisplay(`Node ${index + 1} status: IDLE.`);
-                        setTimeout(() => tryStartWakeWordRecognition(), 1000);
+                        node.classList.remove('node-activated', nodeClass + '-activated'); 
+                        // Status display will revert automatically due to duration, or new status can be set
+                        if (!isMainRecognitionActive && !isProcessingCommand && !SpeechSynthesis.speaking) tryStartWakeWordRecognition();
                     }, 1500 + Math.random() * 1000);
                 });
             });
@@ -413,20 +448,52 @@
             // --- Web Speech API ---
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             const SpeechSynthesis = window.speechSynthesis;
-            let recognition; let initialRecognition;
-            let isListeningForWakeWord = false; let isMainRecognitionActive = false; let isProcessingCommand = false;
+            let recognition, initialRecognition;
+            let isListeningForWakeWord = false, isMainRecognitionActive = false, isProcessingCommand = false;
+            let systemShutdown = false;
 
-            function manualActivationHandler() {
+
+            function ensureAudioContextAndTryWakeWord(tryWakeWord = true) {
                 if (audioCtx && audioCtx.state === 'suspended') {
-                    audioCtx.resume().then(() => { 
-                        performActivation();
+                    audioCtx.resume().then(() => {
+                        console.log("AudioContext resumed by user interaction.");
+                        if (tryWakeWord && !systemShutdown) {
+                             setStatusDisplay("Mic access might be enabled. Trying wake word again, or click core.", false, false, 3000);
+                             tryStartWakeWordRecognition();
+                        }
+                    }).catch(e => {
+                        console.error("Error resuming AudioContext:", e);
+                         setStatusDisplay("Could not resume audio. Click core to activate.", false, true, 3000);
                     });
-                } else {
-                    performActivation();
+                } else if (tryWakeWord && audioCtx && !systemShutdown) {
+                     setStatusDisplay("Trying wake word again, or click core.", false, false, 3000);
+                     tryStartWakeWordRecognition();
                 }
             }
             
+            coreElements.forEach(core => {
+                if(core) core.addEventListener('click', () => {
+                    if (systemShutdown) {
+                        setStatusDisplay("Aura is shutdown. Refresh page to restart.", false, true);
+                        return;
+                    }
+                    if (audioCtx && audioCtx.state === 'suspended') {
+                        audioCtx.resume().then(() => {
+                            performActivation();
+                        }).catch(e => {
+                            console.error("Error resuming AudioContext on core click:", e);
+                            setStatusDisplay("Audio system error. Please try again.", false, true);
+                        });
+                    } else if (audioCtx) { // Check if audioCtx exists
+                        performActivation();
+                    } else { // audioCtx is null
+                        setStatusDisplay("Audio system not available. Interaction limited.", false, true);
+                    }
+                });
+            });
+            
             function performActivation() {
+                if (systemShutdown) return;
                 if (!isMainRecognitionActive && !isListeningForWakeWord && !isProcessingCommand) {
                      if (isFirstActivation) {
                         playHapticSound('activate', 0.4);
@@ -437,13 +504,10 @@
                             startMainRecognition();
                         });
                     }
+                } else {
+                    console.log("Activation attempt while busy:", {isMainRecognitionActive, isListeningForWakeWord, isProcessingCommand});
                 }
             }
-            
-            coreElements.forEach(core => {
-                if(core) core.addEventListener('click', manualActivationHandler);
-            });
-
 
             if (SpeechRecognition && SpeechSynthesis) {
                 recognition = new SpeechRecognition(); recognition.continuous = false; recognition.lang = 'en-US'; recognition.interimResults = false; recognition.maxAlternatives = 1;
@@ -452,45 +516,39 @@
                 recognition.onstart = () => {
                     isMainRecognitionActive = true; setStatusDisplay("Listening...", true);
                     speechRingIndicator.classList.remove('aura-speaking'); speechRingIndicator.classList.add('user-speaking');
-                    if(mainCoreElement) mainCoreElement.style.animationName = 'pulse-listening';
+                    if(mainCoreElement) mainCoreElement.style.animation = `pulse-listening 1.5s var(--spring-ease-elastic) infinite, var(--z) 0s`; // Ensure --z is set
                     playHapticSound('click', 0.15); 
                 };
                 recognition.onresult = (event) => { const speechResult = event.results[0][0].transcript.toLowerCase().trim(); processCommand(speechResult); };
                 recognition.onerror = (event) => { 
-                    if (event.error === 'no-speech') { setStatusDisplay("Didn't catch that. Try 'Aura activate'.", false, true); }
-                    else if (event.error === 'audio-capture') { setStatusDisplay("Mic error. Check permissions.", false, true); }
-                    else if (event.error === 'not-allowed') { setStatusDisplay("Mic access denied. Click core or screen to activate.", false, true); document.body.addEventListener('click', manualActivationHandler, {once: true}); }
-                    else { setStatusDisplay(`Error: ${event.error}. Try 'Aura activate'.`, false, true); }
+                    console.warn("Main recognition error:", event.error);
+                    let errorMsg = `Error: ${event.error}. Try 'Aura activate'.`;
+                    if (event.error === 'no-speech') { errorMsg = "Didn't catch that. Try 'Aura activate' or speak again."; }
+                    else if (event.error === 'audio-capture') { errorMsg = "Microphone error. Please check your microphone and browser permissions."; }
+                    else if (event.error === 'not-allowed' || event.error === 'service-not-allowed') { errorMsg = "Microphone access denied. Please enable it in browser settings. Click screen to try resuming audio."; document.body.addEventListener('click', () => ensureAudioContextAndTryWakeWord(true), {once: true}); }
+                    else if (event.error === 'network') { errorMsg = "Network error with speech service. Check connection."; }
+                    setStatusDisplay(errorMsg, false, true);
                     stopMainRecognitionAndRestartWakeWord();
                 };
-                recognition.onend = () => { if (isMainRecognitionActive) { stopMainRecognitionAndRestartWakeWord(); } };
+                recognition.onend = () => { if (isMainRecognitionActive) { stopMainRecognitionAndRestartWakeWord(); } }; // Only if it was active
 
                 initialRecognition.onstart = () => {
                     isListeningForWakeWord = true; 
-                    if (isFirstActivation) {
-                        setStatusDisplay("Aura ready. Say 'Aura activate' or click core for your initial briefing.");
-                    } else {
-                        setStatusDisplay("Aura ready. Say 'Aura activate' or click core.");
-                    }
+                    if (systemShutdown) { setStatusDisplay("Aura is shutdown. Refresh page to restart."); return; }
+                    if (isFirstActivation) { setStatusDisplay("Aura ready. Say 'Aura activate' or click core for your initial briefing."); } 
+                    else { setStatusDisplay("Aura ready. Say 'Aura activate' or click core."); }
                     speechRingIndicator.classList.remove('user-speaking', 'aura-speaking');
-                    if(mainCoreElement) mainCoreElement.style.animationName = 'pulse-core-enhanced';
-                    if (auraHud) auraHud.classList.remove('aura-thinking'); 
+                    if(mainCoreElement) mainCoreElement.style.animation = `pulse-core-enhanced 2s var(--spring-ease-elastic) infinite 0.2s, var(--z) 0s`;
+                    if (auraHudMain) auraHudMain.classList.remove('aura-thinking'); 
                 };
                 initialRecognition.onresult = (event) => { 
+                    if (systemShutdown) return;
                     for (let i = event.resultIndex; i < event.results.length; ++i) {
                         const transcript = event.results[i][0].transcript.toLowerCase().trim();
                         if (transcript.includes("aura activate") || transcript.includes("activate aura")) {
-                            if (event.results[i].isFinal || transcript.length > ("aura activate".length -2) ) {
+                            if (event.results[i].isFinal || transcript.length > ("aura activate".length - 2) ) { // More robust check
                                 stopWakeWordRecognition();
-                                if (isFirstActivation) {
-                                    playHapticSound('activate', 0.4);
-                                    deliverInitialBriefing();
-                                } else {
-                                    playHapticSound('activate', 0.4);
-                                    speakResponse("Aura activated. How can I help you" + (userName ? ", " + userName : "") + "?", () => {
-                                        startMainRecognition();
-                                    });
-                                }
+                                performActivation(); // Centralized activation logic
                                 return;
                             }
                         }
@@ -498,265 +556,386 @@
                 };
                 initialRecognition.onerror = (event) => { 
                     console.warn("Wake word recognition error:", event.error); isListeningForWakeWord = false;
-                    if (event.error !== 'not-allowed' && event.error !== 'no-speech') { 
-                        setStatusDisplay("Wake word error. Click core or screen to try activating.", false, true);
-                        document.body.addEventListener('click', manualActivationHandler, {once: true});
-                    } else if (event.error === 'not-allowed') {
-                        setStatusDisplay("Mic access denied for wake word. Click core or screen to activate.", false, true);
-                        document.body.addEventListener('click', manualActivationHandler, {once: true});
+                    if (systemShutdown) return;
+                    let errorMsg = "Wake word recognition error. Click core or screen to try activating.";
+                    if (event.error === 'not-allowed' || event.error === 'service-not-allowed') { errorMsg = "Mic access denied for wake word. Click screen to try enabling audio, then click core or say 'Aura activate'."; document.body.addEventListener('click', () => ensureAudioContextAndTryWakeWord(true), {once: true}); }
+                    else if (event.error === 'no-speech') { /* Common, don't always show error, just restart */ }
+                    else if (event.error === 'audio-capture') { errorMsg = "Mic error for wake word. Check hardware/permissions."; }
+                    else { setStatusDisplay(errorMsg, false, true); }
+                    // Attempt to restart unless it's a persistent issue like not-allowed
+                    if (event.error !== 'not-allowed' && event.error !== 'service-not-allowed' && !isMainRecognitionActive && !isProcessingCommand && !document.hidden) {
+                        setTimeout(tryStartWakeWordRecognition, 1000); // Wait a bit before retrying
                     }
                 };
-                initialRecognition.onend = () => { isListeningForWakeWord = false; if (!isMainRecognitionActive && !document.hidden && !isProcessingCommand) { setTimeout(tryStartWakeWordRecognition, 100); } }; 
+                initialRecognition.onend = () => { 
+                    isListeningForWakeWord = false; 
+                    if (systemShutdown) return;
+                    if (!isMainRecognitionActive && !document.hidden && !isProcessingCommand && !SpeechSynthesis.speaking) { 
+                        setTimeout(tryStartWakeWordRecognition, 200); // Small delay before restart
+                    } 
+                }; 
                 
                 tryStartWakeWordRecognition();
             } else { setStatusDisplay("Speech API not supported. Interaction limited.", false, true); }
 
-            function tryStartWakeWordRecognition() { if (initialRecognition && !isListeningForWakeWord && !isMainRecognitionActive && !isProcessingCommand && !SpeechSynthesis.speaking) { try { initialRecognition.start(); if (auraHud) auraHud.classList.remove('aura-thinking'); } catch (e) { console.error("Could not start wake word recognition:", e); if (e.name !== 'NotAllowedError' && e.name !== 'InvalidStateError') { setStatusDisplay("Wake word disabled. Click core to activate Aura.", false, true); document.body.addEventListener('click', manualActivationHandler, { once: true }); } } } }
-            function startMainRecognition() { if (recognition && !isMainRecognitionActive) { try { recognition.start(); } catch (e) { setStatusDisplay("Could not start listening.", false, true); stopMainRecognitionAndRestartWakeWord(); } } }
-            function stopMainRecognition() { isMainRecognitionActive = false; if (recognition) recognition.stop(); statusText.classList.remove('listening'); speechRingIndicator.classList.remove('user-speaking'); if(mainCoreElement) mainCoreElement.style.animationName = 'pulse-core-enhanced'; if (auraHud) auraHud.classList.remove('aura-thinking'); }
-            function stopWakeWordRecognition() { isListeningForWakeWord = false; if(initialRecognition) initialRecognition.stop(); }
-            function stopMainRecognitionAndRestartWakeWord() { stopMainRecognition(); if (!isProcessingCommand) tryStartWakeWordRecognition(); }
+            function tryStartWakeWordRecognition() { 
+                if (systemShutdown || !initialRecognition || isListeningForWakeWord || isMainRecognitionActive || isProcessingCommand || SpeechSynthesis.speaking || document.hidden) return;
+                try { 
+                    initialRecognition.start(); 
+                    if (auraHudMain) auraHudMain.classList.remove('aura-thinking'); 
+                } catch (e) { 
+                    console.error("Could not start wake word recognition:", e); 
+                    if (e.name !== 'NotAllowedError' && e.name !== 'InvalidStateError') { 
+                        setStatusDisplay("Wake word disabled. Click core to activate Aura.", false, true); 
+                    } else if (e.name === 'NotAllowedError') {
+                        setStatusDisplay("Mic access denied. Click screen to try enabling audio, then use core.", false, true);
+                        document.body.addEventListener('click', () => ensureAudioContextAndTryWakeWord(true), {once: true});
+                    }
+                } 
+            }
+            function startMainRecognition() { 
+                if (systemShutdown || !recognition || isMainRecognitionActive) return; 
+                stopWakeWordRecognition(); // Ensure wake word is off
+                try { recognition.start(); } 
+                catch (e) { 
+                    console.error("Could not start main recognition:", e);
+                    setStatusDisplay("Could not start listening. Please try again.", false, true); 
+                    stopMainRecognitionAndRestartWakeWord(); 
+                } 
+            }
+            function stopMainRecognition() { 
+                isMainRecognitionActive = false; 
+                if (recognition) try { recognition.stop(); } catch(e) { console.warn("Error stopping main recognition", e); }
+                statusText.classList.remove('listening'); 
+                speechRingIndicator.classList.remove('user-speaking'); 
+                if(mainCoreElement) mainCoreElement.style.animation = `pulse-core-enhanced 2s var(--spring-ease-elastic) infinite 0.2s, var(--z) 0s`;
+                if (auraHudMain) auraHudMain.classList.remove('aura-thinking'); 
+            }
+            function stopWakeWordRecognition() { 
+                isListeningForWakeWord = false; 
+                if(initialRecognition) try { initialRecognition.stop(); } catch(e) { console.warn("Error stopping wake word recognition", e); }
+            }
+            function stopMainRecognitionAndRestartWakeWord() { 
+                stopMainRecognition(); 
+                if (!isProcessingCommand && !systemShutdown) tryStartWakeWordRecognition(); 
+            }
 
             function speakResponse(text, onEndCallback) {
+                if (systemShutdown && text !== "Aura shutting down. Goodbye.") {
+                    setStatusDisplay("Aura is shutdown. Cannot speak.", false, true);
+                    if (onEndCallback) onEndCallback(); // Call callback if shutdown prevents speech
+                    return;
+                }
                 if (SpeechSynthesis && text) {
-                    // isProcessingCommand = false; // Managed by onstart/onend
-                    // if (auraHud) auraHud.classList.remove('aura-thinking'); // Managed by onstart/onend
+                    if (SpeechSynthesis.speaking) SpeechSynthesis.cancel(); // Cancel previous speech
 
-                    const utterance = new SpeechSynthesisUtterance(text); utterance.pitch = 1.1; utterance.rate = 1.05; utterance.volume = 0.9;
-                    const voices = SpeechSynthesis.getVoices(); let femaleVoice = voices.find(v => v.name.toLowerCase().includes('female') && v.lang.startsWith('en')) || voices.find(v => v.lang.startsWith('en-US') && v.gender === 'female') || voices.find(v => v.lang.startsWith('en-GB') && v.name.toLowerCase().includes('female')); if (femaleVoice) utterance.voice = femaleVoice;
+                    const utterance = new SpeechSynthesisUtterance(text); 
+                    utterance.pitch = 1.1; utterance.rate = 1.05; utterance.volume = 0.9;
+                    const voices = SpeechSynthesis.getVoices(); 
+                    let femaleVoice = voices.find(v => v.name.toLowerCase().includes('female') && v.lang.startsWith('en')) || 
+                                      voices.find(v => v.lang.startsWith('en-US') && (v.gender === 'female' || v.name.toLowerCase().includes('female'))) || 
+                                      voices.find(v => v.lang.startsWith('en-GB') && v.name.toLowerCase().includes('female')) ||
+                                      voices.find(v => v.lang.startsWith('en')); // Fallback to any English voice
+                    if (femaleVoice) utterance.voice = femaleVoice;
                     
                     utterance.onstart = () => { 
                         isProcessingCommand = true; 
                         stopMainRecognition(); stopWakeWordRecognition(); 
-                        setStatusDisplay(`Aura: "${text}"`); 
+                        setStatusDisplay(`Aura: "${text.length > 50 ? text.substring(0, 47) + "..." : text}"`); 
                         speechRingIndicator.classList.remove('user-speaking'); speechRingIndicator.classList.add('aura-speaking'); 
-                        if(mainCoreElement) mainCoreElement.style.animation = 'pulse-core-enhanced 2s var(--spring-ease-elastic) infinite 0.2s, core-aura-speaking-pulse 1s ease-in-out infinite alternate'; 
+                        if(mainCoreElement) mainCoreElement.style.animation = `pulse-core-enhanced 2s var(--spring-ease-elastic) infinite 0.2s, core-aura-speaking-pulse 1s ease-in-out infinite alternate, var(--z) 0s`; 
+                        if (auraHudMain) auraHudMain.classList.remove('aura-thinking');
                     };
                     utterance.onend = () => { 
                         speechRingIndicator.classList.remove('aura-speaking'); 
-                        if(mainCoreElement) mainCoreElement.style.animationName = 'pulse-core-enhanced'; 
+                        if(mainCoreElement) mainCoreElement.style.animation = `pulse-core-enhanced 2s var(--spring-ease-elastic) infinite 0.2s, var(--z) 0s`;
                         isProcessingCommand = false;
                         if (onEndCallback && typeof onEndCallback === 'function') {
                             onEndCallback();
                         } else {
-                            if (!document.hidden) tryStartWakeWordRecognition(); 
+                            if (!document.hidden && !systemShutdown) tryStartWakeWordRecognition(); 
                         }
+                    };
+                    utterance.onerror = (event) => {
+                        console.error("Speech synthesis error:", event.error);
+                        setStatusDisplay(`Speech error: ${event.error}. Could not speak.`, false, true);
+                        speechRingIndicator.classList.remove('aura-speaking');
+                        isProcessingCommand = false;
+                        if (onEndCallback && typeof onEndCallback === 'function') onEndCallback();
+                        else if (!document.hidden && !systemShutdown) tryStartWakeWordRecognition();
                     };
                     SpeechSynthesis.speak(utterance);
                 } else { 
-                    setStatusDisplay(`Aura (fallback): ${text}`); 
+                    setStatusDisplay(`Aura (no speech): ${text}`, false, text.toLowerCase().includes("error")); 
                     isProcessingCommand = false; 
-                    if (auraHud) auraHud.classList.remove('aura-thinking'); 
+                    if (auraHudMain) auraHudMain.classList.remove('aura-thinking'); 
                     if (onEndCallback && typeof onEndCallback === 'function') {
                         onEndCallback();
                     } else {
-                        if (!document.hidden) setTimeout(tryStartWakeWordRecognition, 1500); 
+                        if (!document.hidden && !systemShutdown) setTimeout(tryStartWakeWordRecognition, 1500); 
                     }
                 }
             }
 
             function deliverInitialBriefing() {
                 isProcessingCommand = true; 
-                if (auraHud) auraHud.classList.add('aura-thinking');
+                if (auraHudMain) auraHudMain.classList.add('aura-thinking');
                 setStatusDisplay("Initializing systems and preparing your briefing...");
                 runDiagnostics(); 
 
                 const now = new Date();
                 const greetingName = userName ? " " + userName : "";
-                const mockWeather = "clear and sunny, with a high of 24 degrees Celsius and a light breeze from the west.";
-                const mockSchedule = [
-                    "a team synchronization meeting at 10:00 AM regarding Project Phoenix",
-                    "a client call at 1:30 PM to discuss Q4 projections",
-                    "and a dedicated block for deep work on the Aura interface enhancements from 3:00 PM to 5:00 PM"
-                ];
-                const mockPlans = [
-                    "finalizing the Alpha release candidate for the new data visualization module",
-                    "reviewing user feedback from the latest beta test",
-                    "and outlining the strategy for the upcoming system-wide security audit"
-                ];
-                const mockTasks = [
-                    "compile the weekly progress report",
-                    "respond to critical system alerts from the overnight batch processing",
-                    "prepare presentation materials for tomorrow's stakeholder update",
-                    "and coordinate with the DevOps team for the planned server maintenance window"
-                ];
-
-                let briefingText = `Greetings${greetingName}. Welcome to Aura Intelligence. `;
-                briefingText += `All systems are online and fully operational. `;
-                briefingText += `Let's get you updated for ${now.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' })}. `;
-                briefingText += `The current weather forecast indicates ${mockWeather} `;
-                briefingText += `Your schedule for today includes: ${mockSchedule.join(', ')}. `;
-                briefingText += `Key strategic plans we are tracking involve: ${mockPlans.join('; ')}. `;
-                briefingText += `And your priority tasks are: ${mockTasks.join('; ')}. `;
-                briefingText += `How may I assist you now?`;
+                const mockWeather = "clear and sunny, with a high of 24 degrees Celsius.";
+                const mockSchedule = ["a team sync at 10 AM", "a client call at 1:30 PM", "deep work block from 3 PM"];
+                let briefingText = `Greetings${greetingName}. Welcome to Aura Intelligence. All systems operational. `;
+                briefingText += `Today is ${now.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' })}. `;
+                briefingText += `Weather: ${mockWeather}. Your schedule includes: ${mockSchedule.join(', ')}. How may I assist?`;
 
                 speakResponse(briefingText, () => {
-                    isFirstActivation = false; // Set flag after successful briefing
-                    if (auraHud) auraHud.classList.remove('aura-thinking');
+                    isFirstActivation = false; 
+                    localStorage.setItem('auraFirstActivationDone', 'true');
+                    if (auraHudMain) auraHudMain.classList.remove('aura-thinking');
                     setStatusDisplay("Aura ready. How can I assist you?");
                     startMainRecognition();
                 });
             }
             
+            const commands = {
+                "hello": (cmd) => `Hello${userName ? " " + userName : ""}! How can I assist you?`,
+                "hi aura": (cmd) => commands.hello(cmd),
+                "what time is it": (cmd) => `The current time is ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}.`,
+                "what is today's date": (cmd) => `Today is ${new Date().toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}.`,
+                "what's the date": (cmd) => commands["what is today's date"](cmd),
+                "tell me a joke": (cmd) => { const j = [ "Why don't scientists trust atoms? Because they make up everything!", "I told my wife she was drawing her eyebrows too high. She seemed surprised.", "Why did the scarecrow win an award? Because he was outstanding in his field!"]; return j[Math.floor(Math.random() * j.length)]; },
+                "my name is": (cmd) => {
+                    let nameSpoken = cmd.split("my name is")[1]?.trim();
+                    if (nameSpoken) { userName = nameSpoken.charAt(0).toUpperCase() + nameSpoken.slice(1); localStorage.setItem('auraUserName', userName); return `Nice to meet you, ${userName}! I'll remember that.`; }
+                    return "I didn't quite catch the name. Please try again, like 'My name is Alex'.";
+                },
+                "what's my name": (cmd) => userName ? `Your name is ${userName}.` : "I don't believe you've told me your name yet.",
+                "what is my name": (cmd) => commands["what's my name"](cmd),
+                "calculate": (cmd) => { try { let expr = cmd.replace("calculate", "").replace("what is", "").replace(/plus/g, "+").replace(/minus/g, "-").replace(/times|multiplied by/g, "*").replace(/divided by/g, "/").trim(); if (/^[\d\s().+\-*/.]+$/.test(expr)) { const result = new Function('return ' + expr)(); return `${expr.replace(/\*/g, '×').replace(/\//g, '÷')} equals ${Number(result.toFixed(4))}.`; } return "I can only perform simple calculations like '5 plus 5'."; } catch (e) { return "I couldn't calculate that. Please use simple terms like '5 plus 5'."; } },
+                "run diagnostics": (cmd) => { runDiagnostics(); playHapticSound('activate', 0.3); return "Running system diagnostics now."; },
+                "stealth mode": (cmd) => { setTheme('stealth'); playHapticSound('confirm', 0.2); return "Stealth mode activated."; },
+                "standard theme": (cmd) => { setTheme('standard'); playHapticSound('confirm', 0.2); return "Standard theme restored."; },
+                "normal theme": (cmd) => commands["standard theme"](cmd),
+                "flip a coin": (cmd) => Math.random() < 0.5 ? "Heads!" : "Tails!",
+                "roll a die": (cmd) => `You rolled a ${Math.floor(Math.random() * 6) + 1}.`,
+                "roll dice": (cmd) => commands["roll a die"](cmd),
+                "speed up animation": (cmd) => { currentAnimationSpeedFactor = Math.max(0.25, currentAnimationSpeedFactor / 1.5); root.style.setProperty('--animation-speed-factor', currentAnimationSpeedFactor.toFixed(2)); playHapticSound('confirm', 0.2); return `Animations sped up. Factor: ${currentAnimationSpeedFactor.toFixed(2)}.`; },
+                "increase animation speed": (cmd) => commands["speed up animation"](cmd),
+                "slow down animation": (cmd) => { currentAnimationSpeedFactor = Math.min(4, currentAnimationSpeedFactor * 1.5); root.style.setProperty('--animation-speed-factor', currentAnimationSpeedFactor.toFixed(2)); playHapticSound('confirm', 0.2); return `Animations slowed. Factor: ${currentAnimationSpeedFactor.toFixed(2)}.`; },
+                "decrease animation speed": (cmd) => commands["slow down animation"](cmd),
+                "reset animation speed": (cmd) => { currentAnimationSpeedFactor = 1; root.style.setProperty('--animation-speed-factor', '1'); playHapticSound('confirm', 0.2); return `Animation speed reset.`; },
+                "what's the current animation speed": (cmd) => `Current animation speed factor is ${currentAnimationSpeedFactor.toFixed(2)}.`,
+                "toggle particle": (cmd) => { particlesEnabled = !particlesEnabled; createParticles(); localStorage.setItem('auraParticlesEnabled', particlesEnabled.toString()); playHapticSound('confirm', 0.2); return `Particles ${particlesEnabled ? 'enabled' : 'disabled'}.`; },
+                "remember that": (cmd) => { userMemory = cmd.substring(cmd.indexOf(":") + 1).trim() || cmd.split("remember that ")[1]; if (userMemory) { localStorage.setItem('auraUserMemory', userMemory); return `Okay, I'll remember: "${userMemory.substring(0,50)}${userMemory.length > 50 ? '...' : ''}".`; } return "What should I remember? Say 'remember that: your text'."; },
+                "remember this": (cmd) => commands["remember that"](cmd),
+                "what did i ask you to remember": (cmd) => userMemory ? `You asked me to remember: "${userMemory.substring(0,50)}${userMemory.length > 50 ? '...' : ''}".` : "I don't have anything specific in my memory from you.",
+                "what did i tell you to remember": (cmd) => commands["what did i ask you to remember"](cmd),
+                "clear my memory": (cmd) => { if (userMemory) { userMemory = ""; localStorage.removeItem('auraUserMemory'); playHapticSound('confirm', 0.2); return "Okay, I've cleared what you asked me to remember."; } return "I don't have anything specific in my memory to clear."; },
+                "forget what i told you": (cmd) => commands["clear my memory"](cmd),
+                "set perspective to": (cmd) => {
+                    const match = cmd.match(/(\d+)(\s*px|\s*pixels)?/);
+                    if (match) { const val = parseInt(match[1]); if (val >= 500 && val <= 5000) { auraContainerElement.style.perspective = `${val}px`; playHapticSound('confirm', 0.2); return `Perspective set to ${val} pixels.`; } return "Please choose a perspective value between 500 and 5000 pixels."; }
+                    return "I didn't catch the perspective value. Try 'set perspective to 1500 pixels'.";
+                },
+                "what is the current perspective": (cmd) => `The current perspective is ${getComputedStyle(auraContainerElement).perspective}.`,
+                "reset perspective": (cmd) => { auraContainerElement.style.perspective = defaultPerspectiveValue; playHapticSound('confirm', 0.2); return `Perspective reset to ${defaultPerspectiveValue}.`; },
+                "change background to": (cmd) => {
+                    const colorWord = cmd.split("change background to")[1]?.trim().toLowerCase();
+                    const colorMap = { "red": "#300", "blue": "#003", "green": "#030", "white": "#eee", "darkgray": "#333", "black": "#000", "default": "var(--aura-black)" };
+                    if (colorMap[colorWord]) { document.body.style.backgroundColor = colorMap[colorWord]; playHapticSound('confirm', 0.2); return `Background color changed to ${colorWord}.`; }
+                    return `I don't recognize the color ${colorWord}. Try basic colors or 'default'.`;
+                },
+                "toggle data readouts": (cmd) => { dataReadoutsVisible = !dataReadoutsVisible; readoutElements.forEach(el => {if(el) el.classList.toggle('hidden', !dataReadoutsVisible)}); localStorage.setItem('auraDataReadoutsVisible', dataReadoutsVisible.toString()); playHapticSound('confirm', 0.2); return `Data readouts are now ${dataReadoutsVisible ? 'visible' : 'hidden'}.`; },
+                "save settings": (cmd) => { saveSettings(); return "Processing save request."; }, // speakResponse handles actual confirmation
+                "load settings": (cmd) => { loadSettings(); return "Processing load request."; },
+                "reset settings": (cmd) => { resetSettings(); return "Processing reset request."; },
+                "reboot aura": (cmd) => { rebootAura(); return "Initiating reboot sequence."; },
+                "what's the weather": (cmd) => "The forecast indicates mostly clear skies with a gentle breeze. Temperature around 22 degrees Celsius.",
+                "tell me some news": (cmd) => "In tech news today: AI advancements continue to accelerate. In world events: discussions on global cooperation are ongoing. Locally: a new park is set to open downtown next week.",
+                "your name": (cmd) => "I am Aura, your personal intelligence assistant.",
+                "thank you": (cmd) => `You're welcome${userName ? ", " + userName : ""}!`,
+                "thanks": (cmd) => commands["thank you"](cmd),
+                "how are you": (cmd) => "All systems are online and functioning optimally. Ready for your command!",
+                "what's your status": (cmd) => commands["how are you"](cmd),
+                "list available commands": (cmd) => "I can: tell jokes, do math, run diagnostics, change themes & animation speed, remember things, manage perspective, data readouts, particles, settings (save/load/reset), reboot, shutdown, and more. What would you like?",
+                "what can you do": (cmd) => commands["list available commands"](cmd),
+                "help": (cmd) => commands["list available commands"](cmd),
+                "shutdown aura": (cmd) => {
+                    systemShutdown = true;
+                    stopMainRecognition(); stopWakeWordRecognition(); if (SpeechSynthesis.speaking) SpeechSynthesis.cancel();
+                    if(mainCoreElement) mainCoreElement.style.animation = 'none'; // Stop core animation
+                    auraHudMain.classList.add('aura-thinking'); // Dim or fade effect could be added here
+                    return "Aura shutting down. Goodbye."; // This will be the last spoken response
+                },
+                "stop listening": (cmd) => { stopMainRecognition(); playHapticSound('confirm', 0.1); return "Okay, I've stopped listening for commands. Say 'Aura activate' or click core to resume."; },
+                "deactivate aura": (cmd) => commands["stop listening"](cmd), // Alias
+                "goodbye aura": (cmd) => commands["shutdown aura"](cmd) // More definitive than just stop listening
+            };
+
             function processCommand(command) { 
-                isProcessingCommand = true; stopMainRecognition(); stopWakeWordRecognition();
-                if (auraHud) auraHud.classList.add('aura-thinking');
-                setStatusDisplay(`Processing: "${command}"...`);
+                if (systemShutdown && !command.toLowerCase().includes("refresh")) { // Allow a "refresh" if needed, though browser refresh is better
+                     setStatusDisplay("Aura is shutdown. Refresh page to restart.", false, true); return;
+                }
+                isProcessingCommand = true; stopMainRecognition(); stopWakeWordRecognition(); // Stop all listening
+                if (auraHudMain) auraHudMain.classList.add('aura-thinking');
+                setStatusDisplay(`Processing: "${command.substring(0,30)}${command.length > 30 ? '...' : ''}"...`);
                 playHapticSound('click', 0.1); 
 
-                const processingTime = 800 + Math.random() * 1200; 
-
+                const processingTime = 600 + Math.random() * 800; 
                 setTimeout(() => {
-                    if (auraHud) auraHud.classList.remove('aura-thinking'); // Remove thinking before speaking response
-                    let response = "I'm not sure how to respond to that" + (userName ? ", " + userName : "") + ". Can you try rephrasing or ask for help?";
-                    if (command.includes("hello") || command.includes("hi aura")) { response = "Hello" + (userName ? " " + userName : "") + "! How can I assist you?"; }
-                    else if (command.includes("what time is it")) { const now = new Date(); response = `The current time is ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`; }
-                    else if (command.includes("what is today's date") || command.includes("what's the date")) { const now = new Date(); response = `Today is ${now.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`; }
-                    else if (command.includes("tell me a joke")) { const jokes = [ "Why don't scientists trust atoms? Because they make up everything!", "I told my wife she was drawing her eyebrows too high. She seemed surprised.", "Why did the scarecrow win an award? Because he was outstanding in his field!", "Parallel lines have so much in common. It’s a shame they’ll never meet."]; response = jokes[Math.floor(Math.random() * jokes.length)]; }
-                    else if (command.includes("my name is")) { let nameSpoken = command.split("my name is")[1]?.trim(); if (nameSpoken) { userName = nameSpoken.charAt(0).toUpperCase() + nameSpoken.slice(1); response = `Nice to meet you, ${userName}! I'll remember that.`; } else { response = "I didn't quite catch the name. Please try again, like 'My name is Alex'."; } }
-                    else if (command.includes("what's my name") || command.includes("what is my name")) { response = userName ? `Your name is ${userName}.` : "I don't believe you've told me your name yet."; }
-                    else if (command.includes("calculate") || command.match(/what is \d+(\.\d+)? (plus|minus|times|multiplied by|divided by) \d+(\.\d+)?/)) { try { let expression = command.replace("calculate", "").replace("what is", "").replace("plus", "+").replace("minus", "-").replace("times", "*").replace("multiplied by", "*").replace("divided by", "/").trim(); if (/^[\d\s().+\-*/.]+$/.test(expression)) { const result = new Function('return ' + expression)(); response = `${expression.replace(/\*/g, '×').replace(/\//g, '÷')} equals ${Number(result.toFixed(4))}.`; } else { response = "I can only perform simple calculations like '5 plus 5'."; } } catch (e) { response = "I couldn't calculate that. Please use simple terms like '5 plus 5'."; } }
-                    else if (command.includes("run diagnostics")) { runDiagnostics(); response = "Running system diagnostics now."; playHapticSound('activate', 0.3); }
-                    else if (command.includes("stealth mode")) { setTheme('stealth'); response = "Stealth mode activated."; playHapticSound('confirm', 0.2); }
-                    else if (command.includes("standard theme") || command.includes("normal theme")) { setTheme('standard'); response = "Standard theme restored."; playHapticSound('confirm', 0.2); }
-                    else if (command.includes("flip a coin")) { response = Math.random() < 0.5 ? "Heads!" : "Tails!"; }
-                    else if (command.includes("roll a die") || command.includes("roll dice")) { response = `You rolled a ${Math.floor(Math.random() * 6) + 1}.`; }
-                    else if (command.includes("define artificial intelligence")) { response = "Artificial intelligence is the theory and development of computer systems able to perform tasks that normally require human intelligence, such as visual perception, speech recognition, decision-making, and translation between languages."; }
-                    else if (command.includes("open google") || command.includes("search for")) { response = "I can't directly open websites in this environment, but I'm ready if you'd like to search for something specific!"; }
-                    else if (command.includes("your name")) { response = "I am Aura, your personal intelligence assistant."; }
-                    else if (command.includes("thank you") || command.includes("thanks")) { response = "You're welcome" + (userName ? ", " + userName : "") + "!"; }
+                    if (auraHudMain) auraHudMain.classList.remove('aura-thinking');
+                    let response = null;
+                    let commandProcessed = false;
+
+                    // Iterate through defined commands
+                    for (const keyword in commands) {
+                        if (command.startsWith(keyword) || (keyword.includes(" ") && command.includes(keyword))) { // Handle multi-word keywords and startsWith
+                            response = commands[keyword](command);
+                            commandProcessed = true;
+                            break;
+                        }
+                    }
+                    // Fallback for simple calculations if not caught by "calculate" keyword
+                    if (!commandProcessed && command.match(/what is \d+(\.\d+)? (plus|minus|times|multiplied by|divided by) \d+(\.\d+)?/)) {
+                        response = commands.calculate(command); // Use the calculate handler
+                        commandProcessed = true;
+                    }
+
+                    if (!commandProcessed) {
+                        response = "I'm not sure how to respond to that" + (userName ? ", " + userName : "") + ". Can you rephrase or ask for 'help'?"
+                    }
                     
-                    else if (command.includes("speed up animation") || command.includes("increase animation speed")) {
-                        currentAnimationSpeedFactor = Math.max(0.25, currentAnimationSpeedFactor / 1.5);
-                        root.style.setProperty('--animation-speed-factor', currentAnimationSpeedFactor.toFixed(2));
-                        response = `Animations sped up. Current factor: ${currentAnimationSpeedFactor.toFixed(2)}.`;
-                        playHapticSound('confirm', 0.2);
-                    } else if (command.includes("slow down animation") || command.includes("decrease animation speed")) {
-                        currentAnimationSpeedFactor = Math.min(4, currentAnimationSpeedFactor * 1.5);
-                        root.style.setProperty('--animation-speed-factor', currentAnimationSpeedFactor.toFixed(2));
-                        response = `Animations slowed down. Current factor: ${currentAnimationSpeedFactor.toFixed(2)}.`;
-                        playHapticSound('confirm', 0.2);
-                    } else if (command.includes("reset animation speed")) {
-                        currentAnimationSpeedFactor = 1;
-                        root.style.setProperty('--animation-speed-factor', currentAnimationSpeedFactor);
-                        response = `Animation speed reset.`;
-                        playHapticSound('confirm', 0.2);
-                    } else if (command.includes("what's the current animation speed") || command.includes("what is current animation speed")) {
-                        response = `Current animation speed factor is ${currentAnimationSpeedFactor.toFixed(2)}.`;
-                    } else if (command.includes("toggle particle") || command.includes("particles on off")) {
-                        particlesEnabled = !particlesEnabled;
-                        if (particlesEnabled && particleBg.children.length === 0) createParticles();
-                        particleBg.classList.toggle('hidden', !particlesEnabled);
-                        response = `Particles ${particlesEnabled ? 'enabled' : 'disabled'}.`;
-                        playHapticSound('confirm', 0.2);
-                    } else if (command.startsWith("remember that") || command.startsWith("remember this")) {
-                        userMemory = command.substring(command.indexOf(":") + 1).trim() || command.split("remember that ")[1] || command.split("remember this ")[1];
-                        if (userMemory) response = `Okay, I'll remember: "${userMemory}".`;
-                        else response = "What would you like me to remember? Say 'remember that: your text here'.";
-                    } else if (command.includes("what did i ask you to remember") || command.includes("what did i tell you to remember")) {
-                        response = userMemory ? `You asked me to remember: "${userMemory}".` : "I don't have anything specific in my memory from you.";
-                    } else if (command.includes("clear my memory") || command.includes("forget what i told you")) {
-                        if (userMemory) {
-                            userMemory = "";
-                            response = "Okay, I've cleared what you asked me to remember.";
-                            playHapticSound('confirm', 0.2);
-                        } else {
-                            response = "I don't have anything specific in my memory from you to clear.";
-                        }
-                    } else if (command.includes("set a timer for") || command.includes("remind me to")) {
-                        let durationMatch = command.match(/(\d+)\s*(second|minute|hour)s?/);
-                        let task = "";
-                        if (command.includes("remind me to")) {
-                            task = command.split("remind me to")[1].split(" in ")[0].trim();
-                        }
-                        if (durationMatch) {
-                            let duration = parseInt(durationMatch[1]);
-                            let unit = durationMatch[2];
-                            response = `Okay, ${task ? 'reminder set to ' + task : 'timer set'} for ${duration} ${unit}${duration > 1 ? 's' : ''}. I'll notify you (conceptually).`;
-                        } else {
-                            response = "I can set a conceptual timer. For how long?";
-                        }
-                    } else if (command.includes("tell me a story")) {
-                        const stories = ["Once upon a time, in a digital realm, an AI assistant helped a user navigate the web...", "The core pulsed, data flowed, and a new insight emerged from the network...", "In a future not too distant, Aura and its user explored virtual galaxies together."];
-                        response = stories[Math.floor(Math.random() * stories.length)];
-                    } else if (command.includes("sing a song") || command.includes("sing me a song")) {
-                        response = "Okay, here's a little tune: La la la... beep boop... digital harmony! I'm better at data than music.";
-                    } else if (command.includes("set perspective to")) {
-                        const perspectiveValMatch = command.match(/(\d+)(\s*px|\s*pixels)?/);
-                        if (perspectiveValMatch) {
-                            const val = parseInt(perspectiveValMatch[1]);
-                            if (val >= 500 && val <= 5000) {
-                                auraContainerElement.style.perspective = `${val}px`;
-                                response = `Perspective set to ${val} pixels.`;
-                                playHapticSound('confirm', 0.2);
-                            } else {
-                                response = "Please choose a perspective value between 500 and 5000 pixels.";
-                            }
-                        } else {
-                            response = "I didn't catch the perspective value. Try 'set perspective to 1500 pixels'.";
-                        }
-                    } else if (command.includes("what is the current perspective") || command.includes("what's the perspective")) {
-                        response = `The current perspective is ${getComputedStyle(auraContainerElement).perspective}.`;
-                    } else if (command.includes("reset perspective")) {
-                        auraContainerElement.style.perspective = defaultPerspectiveValue;
-                        response = `Perspective reset to ${defaultPerspectiveValue}.`;
-                        playHapticSound('confirm', 0.2);
-                    } else if (command.includes("list available commands") || command.includes("what can you do") || command.includes("help")) {
-                        response = "You can ask me to: tell a joke, calculate simple math, run diagnostics, change themes, manage animation speed, remember things, set perspective, or flip a coin. What would you like to try?";
-                    } else if (command.startsWith("change background to")) {
-                        const colorWord = command.split("change background to")[1]?.trim().toLowerCase();
-                        const colorMap = { "red": "#300", "blue": "#003", "green": "#030", "white": "#eee", "darkgray": "#333", "black": "#000" };
-                        if (colorMap[colorWord]) {
-                            document.body.style.backgroundColor = colorMap[colorWord];
-                            response = `Background color changed to ${colorWord}.`;
-                            playHapticSound('confirm', 0.2);
-                        } else {
-                            response = `I don't recognize the color ${colorWord}. Try basic colors like red, blue, or white.`;
-                        }
-                    } else if (command.includes("how are you") || command.includes("what's your status")) {
-                        response = "All systems are online and functioning optimally. Ready for your command!";
-                    } else if (command.includes("toggle data readouts") || command.includes("show data readouts") || command.includes("hide data readouts")) {
-                        dataReadoutsVisible = !dataReadoutsVisible;
-                        readoutElements.forEach(el => el.classList.toggle('hidden', !dataReadoutsVisible));
-                        response = `Data readouts are now ${dataReadoutsVisible ? 'visible' : 'hidden'}.`;
-                        playHapticSound('confirm', 0.2);
-                    } else if (command.includes("get a random number") || command.includes("random number")) {
-                        response = `Here's a random number: ${Math.floor(Math.random() * 100) + 1}.`;
+                    if (command === "shutdown aura") { // Special handling for shutdown to prevent restart of wake word
+                        speakResponse(response, () => {
+                            setStatusDisplay("Aura is shutdown. Refresh page to restart.", false, true);
+                            // No further actions, system is off.
+                        });
+                    } else {
+                        speakResponse(response); // Default onEnd will try to restart wake word
                     }
-                    else if (command.includes("stop listening") || command.includes("deactivate aura") || command.includes("goodbye aura")) { 
-                        response = "Deactivating. Goodbye for now" + (userName ? ", " + userName : "") + "."; 
-                        speakResponse(response); // No specific onEnd needed here, default is fine
-                        // stopMainRecognition(); stopWakeWordRecognition(); // These are called by speakResponse.onstart
-                        // isProcessingCommand = false; // This is handled by speakResponse.onend
-                        // if (auraHud) auraHud.classList.remove('aura-thinking'); // This is handled by speakResponse start/end
-                        setStatusDisplay("Aura deactivated. Refresh or click core to restart."); 
-                        speechRingIndicator.classList.remove('user-speaking', 'aura-speaking'); 
-                        return; 
-                    }
-                    speakResponse(response); // Default onEnd will try to restart wake word
                 }, processingTime);
             }
 
             function runDiagnostics() { 
-                const elementsToFlash = Array.from(auraHud.querySelectorAll('.ring, .arc, .core-1, .core-2, .bracket, .hud-node')); 
+                const elementsToFlash = Array.from(auraHudMain.querySelectorAll('.ring, .arc, .core-1, .core-2, .bracket, .hud-node')); 
                 elementsToFlash.forEach((el, i) => { setTimeout(() => el.classList.add('diagnostic-flash'), i * 30); setTimeout(() => el.classList.remove('diagnostic-flash'), i * 30 + 900); }); 
-                const scanLine = document.createElement('div'); scanLine.classList.add('diagnostic-scan-line'); auraHud.appendChild(scanLine); 
+                const scanLine = document.createElement('div'); scanLine.classList.add('diagnostic-scan-line'); auraHudMain.appendChild(scanLine); 
                 setTimeout(() => scanLine.remove(), 1500); 
             }
+
             function setTheme(themeName) {
                 const body = document.body; const particles = document.querySelectorAll('.particle');
                 const rootStyle = root.style; 
                 if (themeName === 'stealth') {
                     Object.entries({'--aura-black': 'var(--stealth-black)', '--aura-deep-blue': 'var(--stealth-deep-blue)', '--aura-mid-blue': 'var(--stealth-mid-blue)', '--aura-light-blue': 'var(--stealth-light-blue)', '--aura-cyan': 'var(--stealth-cyan)', '--aura-bright-cyan': 'var(--stealth-bright-cyan)', '--aura-text-main': 'var(--stealth-text-main)', '--aura-text-glow': 'var(--stealth-text-glow-val)', '--aura-energy-color': 'var(--stealth-energy-color)'}).forEach(([prop, val]) => rootStyle.setProperty(prop, val));
-                    particles.forEach(p => p.style.backgroundColor = 'var(--stealth-mid-blue)');
-                } else { 
+                } else { // Standard theme
                      Object.entries({'--aura-black': '#000000', '--aura-deep-blue': '#0a2447', '--aura-mid-blue': '#1a5cb0', '--aura-light-blue': '#4ac0ff', '--aura-cyan': '#00ffff', '--aura-bright-cyan': '#90ffff', '--aura-text-main': '#4ac0ff', '--aura-text-glow': 'var(--aura-glow-blue)', '--aura-energy-color': 'var(--aura-bright-cyan)'}).forEach(([prop, val]) => rootStyle.setProperty(prop, val));
-                    particles.forEach(p => p.style.backgroundColor = '#1a5cb0');
                 }
-                 body.style.backgroundColor = rootStyle.getPropertyValue('--aura-black');
+                currentTheme = themeName; // Update tracker
+                body.style.backgroundColor = getComputedStyle(root).getPropertyValue('--aura-black').trim(); // Ensure body bg updates with var change
+                // Update particle colors based on new theme vars
+                const particleColor = themeName === 'stealth' ? getComputedStyle(root).getPropertyValue('--stealth-mid-blue').trim() : getComputedStyle(root).getPropertyValue('--aura-mid-blue').trim();
+                particles.forEach(p => p.style.backgroundColor = particleColor);
             }
             
-            if (SpeechSynthesis.onvoiceschanged !== undefined) { SpeechSynthesis.onvoiceschanged = () => SpeechSynthesis.getVoices(); } SpeechSynthesis.getVoices();
+            function saveSettings() {
+                localStorage.setItem('auraUserName', userName);
+                localStorage.setItem('auraUserMemory', userMemory);
+                localStorage.setItem('auraAnimSpeed', currentAnimationSpeedFactor.toString());
+                localStorage.setItem('auraParticlesEnabled', particlesEnabled.toString());
+                localStorage.setItem('auraTheme', currentTheme);
+                localStorage.setItem('auraPerspective', getComputedStyle(auraContainerElement).perspective);
+                localStorage.setItem('auraFirstActivationDone', isFirstActivation ? 'false' : 'true'); // Persist if briefing was done
+                localStorage.setItem('auraDataReadoutsVisible', dataReadoutsVisible.toString());
+                playHapticSound('confirm', 0.2);
+                speakResponse("Settings saved successfully.");
+            }
+
+            function loadSettings() {
+                userName = localStorage.getItem('auraUserName') || "";
+                userMemory = localStorage.getItem('auraUserMemory') || "";
+                currentAnimationSpeedFactor = parseFloat(localStorage.getItem('auraAnimSpeed')) || 1;
+                root.style.setProperty('--animation-speed-factor', currentAnimationSpeedFactor.toFixed(2));
+                
+                particlesEnabled = localStorage.getItem('auraParticlesEnabled') === null ? true : localStorage.getItem('auraParticlesEnabled') === 'true';
+                createParticles(); // Re-create based on loaded state
+
+                const loadedTheme = localStorage.getItem('auraTheme') || 'standard';
+                setTheme(loadedTheme);
+
+                const loadedPerspective = localStorage.getItem('auraPerspective') || defaultPerspectiveValue;
+                auraContainerElement.style.perspective = loadedPerspective;
+                
+                isFirstActivation = localStorage.getItem('auraFirstActivationDone') === null || localStorage.getItem('auraFirstActivationDone') === 'false';
+
+                dataReadoutsVisible = localStorage.getItem('auraDataReadoutsVisible') === null ? true : localStorage.getItem('auraDataReadoutsVisible') === 'true';
+                readoutElements.forEach(el => { if(el) el.classList.toggle('hidden', !dataReadoutsVisible); });
+
+
+                playHapticSound('confirm', 0.2);
+                speakResponse("Settings loaded.", () => {
+                    if (!isListeningForWakeWord && !isMainRecognitionActive && !isProcessingCommand && !systemShutdown) {
+                        tryStartWakeWordRecognition();
+                    }
+                });
+            }
+
+            function resetSettings() {
+                localStorage.removeItem('auraUserName'); userName = "";
+                localStorage.removeItem('auraUserMemory'); userMemory = "";
+                localStorage.removeItem('auraAnimSpeed'); currentAnimationSpeedFactor = 1; root.style.setProperty('--animation-speed-factor', '1');
+                localStorage.removeItem('auraParticlesEnabled'); particlesEnabled = true; createParticles();
+                localStorage.removeItem('auraTheme'); setTheme('standard');
+                localStorage.removeItem('auraPerspective'); auraContainerElement.style.perspective = defaultPerspectiveValue;
+                localStorage.removeItem('auraFirstActivationDone'); isFirstActivation = true;
+                localStorage.removeItem('auraDataReadoutsVisible'); dataReadoutsVisible = true; readoutElements.forEach(el => { if(el) el.classList.remove('hidden'); });
+
+
+                playHapticSound('confirm', 0.3);
+                speakResponse("All settings have been reset to default. You will receive the initial briefing again on next activation.", () => {
+                    setStatusDisplay("Settings reset. Say 'Aura activate' or click core for briefing.");
+                    if (!systemShutdown) tryStartWakeWordRecognition();
+                });
+            }
+
+            function rebootAura() {
+                systemShutdown = false; // Ensure system is not marked as shutdown
+                speakResponse("Rebooting Aura systems. Stand by.", () => {
+                    isFirstActivation = localStorage.getItem('auraFirstActivationDone') === null; // Re-check if briefing is needed
+                    // userName and userMemory are kept from localStorage or current state
+                    
+                    if (SpeechSynthesis.speaking) SpeechSynthesis.cancel();
+                    stopMainRecognition(); stopWakeWordRecognition();
+                    
+                    auraHudMain.classList.add('aura-thinking'); 
+                    runDiagnostics(); 
+
+                    setTimeout(() => {
+                        auraHudMain.classList.remove('aura-thinking');
+                        setStatusDisplay("Aura reboot complete. Say 'Aura activate' or click core.");
+                        tryStartWakeWordRecognition();
+                    }, 2500);
+                });
+            }
+            
+            // --- Initial Setup Calls ---
+            setTheme(currentTheme); // Apply loaded or default theme
+            const loadedPerspectiveOnInit = localStorage.getItem('auraPerspective') || defaultPerspectiveValue;
+            if(auraContainerElement) auraContainerElement.style.perspective = loadedPerspectiveOnInit;
+
+            if (SpeechSynthesis.onvoiceschanged !== undefined) { SpeechSynthesis.onvoiceschanged = () => SpeechSynthesis.getVoices(); } 
+            SpeechSynthesis.getVoices(); // Prime the voice list
+
+            // Attempt to resume audio context on any initial click on the body, useful if permissions were just granted.
+            document.body.addEventListener('click', () => {
+                if (audioCtx && audioCtx.state === 'suspended') {
+                    audioCtx.resume().catch(e => console.warn("Initial body click resume failed:", e));
+                }
+            }, { once: true });
+
         });
     </script>
 </body>
